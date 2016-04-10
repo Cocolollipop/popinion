@@ -1,0 +1,196 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+    {% block title %}Accueil{% endblock %}
+{% block content %}
+    <div class="section section-info cmtcamarche" id="cmtcamarche">
+
+        <div class="row">
+      
+          <div class="col-md-12 text-center">
+            <h1 class="text-center">Comment ça marche</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div id="accueil-consignes" class="col-md-10 text-center">
+            <p contenteditable="true"></p>
+            <ol class="paragraph">
+              <p>Cliquez simplement sur la cause que vous souhaitez soutenir</p>
+              <p>Donnez nous votre avis </p>
+              <p>Votre don rejoint la cagnotte de l'association !</p>
+            </ol>
+      
+          </div>
+          <div class="col-md-2">
+            <ul class="media-list">
+              <li class="media">
+                <div class="media-body">
+                  <div class="col-xs-3 text-center">
+                    <a><i class="fa fa-3x fa-facebook fa-fw text-inverse"></i></a>
+                  </div>
+                </div>
+              </li>
+              <li class="media">
+                <div class="media-body">
+                  <div class="col-xs-3 text-center">
+                    <a><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                  </div>
+                </div>
+              </li>
+              <li class="media">
+                <div class="media-body">
+                  <div class="col-xs-3 text-center">
+                    <a><i class="fa fa-3x fa-fw fa-linkedin text-inverse"></i></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+   
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            {% image '@AppBundle/Resources/public/images/logo-asso/sante/theme-sante.jpg' %}
+    <img src="{{ asset_url }}" alt="Example"  height="300px width="80%"/>
+{% endimage %}   
+            <h1 class="text-danger">Humanitaire/Santé&nbsp;</h1>
+            <p></p>
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h6 class="panel-title text-success">Total des dons </h6>
+              </div>
+            </div>
+            <div class="btn-group"></div>
+            <h1>Top donnateurs&nbsp;</h1>
+            <ol>
+              <li>One</li>
+              <li>Two</li>
+              <li>Three</li>
+            </ol>
+            <h1 class="text-danger">Collectes en cours</h1>
+           <a href="#"> {% image '@AppBundle/Resources/public/images/logo-asso/sante/Logo-APF.jpg' %}
+              <img src="{{ asset_url }}" alt="Example" height="75px" />
+          {% endimage %} </a>
+   
+            <a href="#"> {% image '@AppBundle/Resources/public/images/logo-asso/sante/msf_international_logo_colour_cmyk.jpg' %}
+                        <img src="{{ asset_url }}" alt="Example" height="75px" />
+                    {% endimage %} </a>
+        
+          
+          </div>
+          <div class="col-md-6">
+              {% image '@AppBundle/Resources/public/images/logo-asso/env/theme-env.jpg' %}
+    <img src="{{ asset_url }}" alt="Example"  height="300px" width="80%"/>
+{% endimage %} 
+            <h1 class="text-danger">Environnement / Développement</h1>
+            <p></p>
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h6 class="panel-title text-success">Total des dons</h6>
+              </div>
+            </div>
+            <div class="btn-group"></div>
+            <h1>Top donnateurs&nbsp;</h1>
+            <ol>
+              <li>One</li>
+              <li>Two</li>
+              <li>Three</li>
+            </ol>
+            <h1 class="text-danger">Collectes complétées</h1>
+             <a href="#"> {% image '@AppBundle/Resources/public/images/logo-asso/env/logo-fne.jpg' %}
+    <img src="{{ asset_url }}" alt="Example" height="75px" />
+{% endimage %} </a>
+             <a href="#"> {% image '@AppBundle/Resources/public/images/logo-asso/env/Logo World Wildlife Fund.jpg' %}
+              <img src="{{ asset_url }}" alt="Example"  height="75px" />
+          {% endimage %} </a>
+
+          <a href="#"> {% image '@AppBundle/Resources/public/images/logo-asso/env/adt_logo_couleur.png' %}
+              <img src="{{ asset_url }}" alt="Example" height="75px" />
+          {% endimage %} </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section section-info">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="page-header">
+              <h1 style="font-family:Kotta One">Histoire</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>Popinion c'est une équipe soudée, aux profils diférents mais complémentaires. Tous passionés d'entrepreneuriat et du digital, ils ont pour volonté de faire bouger les choses et changer le monde.
+            </br>
+              <h3 style="font-family:Kotta One"> Valeurs</h3>
+<p> Transparence ; innovation ; création du lien ; solidarité</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section section-info">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+          {% image '@AppBundle/Resources/public/images/team.jpg' %}
+              <img src="{{ asset_url }}" width="95%"/>
+          {% endimage %}
+          </div>
+          <div class="col-md-6">
+           {# <h1>A title</h1>#}
+          
+            <p>Popinion est une application mobile/web qui permet à ses utilisateurs de faire des
+dons rapidement et sans dépenser d'argent, ceci en complétant des questionnaires simples.
+Partant du constat que les gens n'ont pas forcément le temps, ou les moyens de participer à
+des actions sociales et solidaires (bénévolats, dons,...) nous leur proposons au travers de
+notre plateforme un moyen, simple, rapide et gratuit pour faire des dons à des associations
+de leur choix, réparties dans deux catégories : Humanitaire-santé et Environnementdéveloppement
+durable.
+L'argent fournit par les entreprises qui commanderont les sondages, sera reversé à hauteur
+de 70% aux associations, les 30% restants, serviront au bon fonctionnement de la plateforme.
+
+</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12" id="form-contact">
+            <h1 class="text-center">Contact</h1>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <p class="text-center" contenteditable="true">Vous souhaitez prendre contact avec nos équipes ? Remplissez la fiche :)</p>
+              </div>
+              <div class="panel-body">
+                <form role="form">
+                  <div class="form-group">
+                    <label class="control-label" for="exampleInputEmail1">Nom*:</label>
+                    <input class="form-control" id="exampleInputEmail1" placeholder="Entrer nom" type="email">
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="exampleInputEmail1">E-mail*:</label>
+                    <input class="form-control" id="exampleInputEmail1" placeholder="Entrer email" type="email">
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="exampleInputEmail1">Téléphone:</label>
+                    <input class="form-control" id="exampleInputEmail1" placeholder="Numero de téléphone" type="email">
+                  </div>
+                  <div class="form-group">
+                    <label for="comment" class="control-label">Message*:</label>
+                    <textarea class="form-control" rows="5" id="comment" placeholder="Composer message"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-danger btn-lg" contenteditable="true" id="send-contact">
+                    <i class="fa fa-fw fa-lg fa-send-o"></i>Envoyer</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

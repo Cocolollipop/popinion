@@ -1,0 +1,48 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+    {% block title %}Asso Medecins sans frontieres{% endblock %}
+{% block content %}
+ <div class="section"> <div class="container"> <div class="row"> <div class="col-md-12"> <h1 class="text-center text-primary">Titre asso-thème</h1><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.</p><img src="https://ununsplash.imgix.net/photo-1423753623104-718aaace6772?w=1024&amp;q=50&amp;fm=jpg&amp;s=1ffa61419561b5c796bca3158e7c704c" class="img-responsive">  </div></div></div></div><div class="section"><div class="container"><div class="row"><div class="col-md-12"><div class="panel panel-primary"><div class="panel-heading"><h6 class="panel-title text-left">Questionnaire fait par&nbsp;&nbsp;Asso</h6></div><div class="panel-body"><ol><li>One</li><li>Two</li><li>Three</li></ol></div></div></div></div></div></div>
+ 
+        <div class="section section-info cmtcamarche" id="cmtcamarche">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <h1 class="text-center">Les medecins sans frontieres</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 text-left">
+                        <p contenteditable="true"></p>
+                        <ol class="paragraph">
+                          
+                        </ol>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section"><div class="container"><div class="row"><div class="col-md-12"><h1 class="text-center">Details asso</h1></div></div></div></div><div class="section"> <div class="container"> <div class="row"> <div class="col-md-2"> 
+
+         {% image '@AppBundle/Resources/public/images/logo-asso/medecins-sans-frontieres.jpg' %}
+    <img src="{{ asset_url }}" alt="Example" height="100px" />
+{% endimage %}  
+
+         </div><div class="col-md-9"> {# <h1>A title</h1> <h3>A subtitle</h3> #} 
+
+        <p> Medecins sans frontieres : Les Médecins Sans Frontières apportent leur secours aux populations en détresse, aux victimes de catastrophes d'origine naturelle ou humaine, de situation de belligérance, sans aucune discrimination de race, religion, philosophique ou politique.
+
+Oeuvrant dans la neutralité et en toute impartialité, les Médecins Sans Frontières revendiquent, au nom de l'éthique médicale universelle et du droit à l'assistance humanitaire, la liberté pleine et entière de l'exercice de leur fonction.
+
+Ils s'engagent à respecter les principes déontologiques de leur profession et à maintenir une totale indépendance à l'égard de tout pouvoir, ainsi que de toute force politique, économique ou religieuse.
+
+Volontaires, ils mesurent les risques et périls des missions qu'ils accomplissent et ne réclameront pour eux ou leurs ayants droit aucune compensation, autre que celle que l'organisation sera en mesure de leur fournir.
+
+</p></div></div><div class="row"><div class="col-md-12">
+
+<p class="text-danger text-center"><button type="button" class="btn btn-primary">
+  <span  aria-hidden="true"></span> Lien de l'asso
+</button></p><footer></footer></div></div></div></div>
+        
+        
+        {% endblock %}

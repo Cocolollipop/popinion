@@ -1,0 +1,42 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+    {% block title %}Asso France nature environnement{% endblock %}
+{% block content %}
+        <div class="section section-info cmtcamarche" id="cmtcamarche">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <h1 class="text-center">France Nature Environnement </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 text-left">
+                        <p contenteditable="true"></p>
+                        <ol class="paragraph">
+                          
+                        </ol>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section"><div class="container"><div class="row"><div class="col-md-12"><h1 class="text-center">Details asso</h1></div></div></div></div><div class="section"> <div class="container"> <div class="row"> <div class="col-md-2"> 
+
+         {% image '@AppBundle/Resources/public/images/logo-asso/env/logo-fne.jpg' %}
+    <img src="{{ asset_url }}" alt="Example" height="100px" />
+{% endimage %}  
+
+         </div><div class="col-md-9"> {# <h1>A title</h1> <h3>A subtitle</h3> #} 
+
+        <p> France Nature Environnement est la fédération française des associations de protection de la nature et de l'environnement. Elle est la porte-parole d'un mouvement de 3500 associations, regroupées au sein de 80 organisations adhérentes, présentes sur tout le territoire français, en métropole et outre-mer.
+
+Fondée en 1968, reconnue d’utilité publique en 1976, France Nature Environnement se bat pour la protection de la nature et de l’environnement. Une équipe fédérale, composée de près de 200 bénévoles et 43 salariés, s’y investit au quotidiennt pour eux ou leurs ayants droit aucune compensation, autre que celle que l'organisation sera en mesure de leur fournir.
+
+</p></div></div><div class="row"><div class="col-md-12">
+
+<p class="text-danger text-center"><button type="button" class="btn btn-primary">
+  <span  aria-hidden="true"></span> Lien de l'asso
+</button></p><footer></footer></div></div></div></div>
+        
+        
+        {% endblock %}
