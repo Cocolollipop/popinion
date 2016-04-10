@@ -23,6 +23,14 @@ class Answer
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="wording", type="text", nullable=true)
+     */
+    private $wording;
+
+
+    /**
      * @var int
      *
      * @ORM\Column(name="vote", type="integer")
@@ -93,5 +101,29 @@ class Answer
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    /**
+     * Set wording
+     *
+     * @param string $wording
+     *
+     * @return Answer
+     */
+    public function setWording($wording)
+    {
+        $this->wording = $wording;
+
+        return $this;
+    }
+
+    /**
+     * Get wording
+     *
+     * @return string
+     */
+    public function getWording()
+    {
+        return $this->wording;
     }
 }

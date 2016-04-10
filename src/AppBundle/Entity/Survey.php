@@ -31,6 +31,18 @@ class Survey
     protected $questions;
 
 
+    /** @ORM\Column(name="counter", type="integer")
+     */
+    private $counter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="wording", type="text", nullable=true)
+     */
+    private $wording;
+
+
     /**
      * Get id
      *
@@ -47,6 +59,30 @@ class Survey
     public function __construct()
     {
         $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set counter
+     *
+     * @param integer $counter
+     *
+     * @return Survey
+     */
+    public function setCounter($counter)
+    {
+        $this->counter = $counter;
+
+        return $this;
+    }
+
+    /**
+     * Get counter
+     *
+     * @return int
+     */
+    public function getCounter()
+    {
+        return $this->counter;
     }
 
     /**
@@ -81,5 +117,29 @@ class Survey
     public function getQuestions()
     {
         return $this->questions;
+    }
+
+    /**
+     * Set wording
+     *
+     * @param string $wording
+     *
+     * @return Survey
+     */
+    public function setWording($wording)
+    {
+        $this->wording = $wording;
+
+        return $this;
+    }
+
+    /**
+     * Get wording
+     *
+     * @return string
+     */
+    public function getWording()
+    {
+        return $this->wording;
     }
 }

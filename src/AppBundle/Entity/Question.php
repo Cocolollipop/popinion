@@ -37,6 +37,13 @@ class Question
     protected $survey;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="wording", type="text", nullable=true)
+     */
+    private $wording;
+
+    /**
      * Get id
      *
      * @return int
@@ -94,5 +101,30 @@ class Question
     public function getSurvey()
     {
         return $this->survey;
+    }
+
+
+    /**
+     * Set wording
+     *
+     * @param string $wording
+     *
+     * @return Question
+     */
+    public function setWording($wording)
+    {
+        $this->wording = $wording;
+
+        return $this;
+    }
+
+    /**
+     * Get wording
+     *
+     * @return string
+     */
+    public function getWording()
+    {
+        return $this->wording;
     }
 }
