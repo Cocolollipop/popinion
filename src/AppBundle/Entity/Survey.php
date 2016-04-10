@@ -31,7 +31,8 @@ class Survey
     protected $questions;
 
 
-    /** @ORM\Column(name="counter", type="integer")
+    /** 
+     * @ORM\Column(name="counter", type="integer")
      */
     private $counter;
 
