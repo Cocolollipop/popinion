@@ -1,5 +1,5 @@
 /vendor/
 /var/log/*
 /var/cache/*
-/var/session/*
+/var/sessions/*
 /web/bundles/
