@@ -23,14 +23,15 @@ class Question
     private $id;
 
      /**
-     * @ORM\ManyToOne(targetEntity="Answer", inversedBy="answer")
-     * @Assert\Type(type="AppBundle\Entity\Answer")
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
+     * @Assert\Type(type="array")
      * @Assert\Valid()
      */
     protected $answers = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity="Survey", inversedBy="survey")
+     * @ORM\ManyToOne(targetEntity="Survey", inversedBy="questions")
+	 * @ORM\JoinColumn(name="survey_id", referencedColumnName="id")
      * @Assert\Type(type="AppBundle\Entity\Survey")
      * @Assert\Valid()
      */
@@ -42,6 +43,14 @@ class Question
      * @ORM\Column(name="wording", type="text", nullable=true)
      */
     private $wording;
+	
+	 /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -51,32 +60,6 @@ class Question
     public function getId()
     {
         return $this->id;
-    }
-
-
-
-    /**
-     * Set answers
-     *
-     * @param \AppBundle\Entity\Answer $answers
-     *
-     * @return Question
-     */
-    public function setAnswers(\AppBundle\Entity\Answer $answers = null)
-    {
-        $this->answers = $answers;
-
-        return $this;
-    }
-
-    /**
-     * Get answers
-     *
-     * @return \AppBundle\Entity\Answer
-     */
-    public function getAnswers()
-    {
-        return $this->answers;
     }
 
     /**
@@ -126,5 +109,39 @@ class Question
     public function getWording()
     {
         return $this->wording;
+    }
+
+    /**
+     * Add answer
+     *
+     * @param \AppBundle\Entity\Answer $answer
+     *
+     * @return Question
+     */
+    public function addAnswer(\AppBundle\Entity\Answer $answer)
+    {
+        $this->answers[] = $answer;
+
+        return $this;
+    }
+
+    /**
+     * Remove answer
+     *
+     * @param \AppBundle\Entity\Answer $answer
+     */
+    public function removeAnswer(\AppBundle\Entity\Answer $answer)
+    {
+        $this->answers->removeElement($answer);
+    }
+
+    /**
+     * Get answers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
     }
 }

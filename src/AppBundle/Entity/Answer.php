@@ -35,10 +35,11 @@ class Answer
      *
      * @ORM\Column(name="vote", type="integer")
      */
-    private $vote;
+    private $vote = 0;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Question", inversedBy="question")
+     * @ORM\ManyToOne(targetEntity="Question", inversedBy="answers")
+	 * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
      * @Assert\Type(type="AppBundle\Entity\Question")
      * @Assert\Valid()
      */
@@ -62,7 +63,7 @@ class Answer
      *
      * @return Answer
      */
-    public function setVote($vote)
+    public function setVote($vote = 0)
     {
         $this->vote = $vote;
 

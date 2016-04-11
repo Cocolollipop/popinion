@@ -24,8 +24,8 @@ class Survey
 
 
      /**
-     * @ORM\OneToMany(targetEntity="Question", mappedBy="question")
-     * @Assert\Type(type="AppBundle\Entity\Question")
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="survey")
+     * @Assert\Type(type="array")
      * @Assert\Valid()
      */
     protected $questions;
@@ -34,7 +34,7 @@ class Survey
     /** 
      * @ORM\Column(name="counter", type="integer")
      */
-    private $counter;
+    private $counter = 0;
 
     /**
      * @var string
@@ -42,6 +42,20 @@ class Survey
      * @ORM\Column(name="wording", type="text", nullable=true)
      */
     private $wording;
+	
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
+    private $title;
+	
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     */
+    private $slug;
 
 
     /**
@@ -69,7 +83,7 @@ class Survey
      *
      * @return Survey
      */
-    public function setCounter($counter)
+    public function setCounter($counter = 0)
     {
         $this->counter = $counter;
 
@@ -142,5 +156,53 @@ class Survey
     public function getWording()
     {
         return $this->wording;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Survey
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Survey
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
