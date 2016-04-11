@@ -15,7 +15,7 @@ class LoadQuestionData extends AbstractFixture implements OrderedFixtureInterfac
 			'Quelle est votre saison préférée?',
 			'Quelle environnement préférez vous?',
 		];
-	    $survey = $this->getReference('sontage-popinion-1');
+	    $survey = $this->getReference('sondage-popinion-1');
         
 		foreach($questions as $k => $wording) {
 			$question = new Question();

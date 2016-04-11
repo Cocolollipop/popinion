@@ -14,12 +14,12 @@ class LoadSurveyData extends AbstractFixture implements OrderedFixtureInterface
         $survey = new Survey();
 		$survey->setWording('Ceci est le sondage Popinion n°1');
         $survey->setTitle('Sondage Popinion n°1');
-		$survey->setSlug('sontage-popinion-1');
+		$survey->setSlug('sondage-popinion-1');
 
         $manager->persist($survey);
         $manager->flush();
 		
-		$this->addReference('sontage-popinion-1', $survey);
+		$this->addReference('sondage-popinion-1', $survey);
     }
 	
 	/** getOrder **/

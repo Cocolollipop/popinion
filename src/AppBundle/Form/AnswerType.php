@@ -15,8 +15,7 @@ class AnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('vote')
-            ->add('question')
+            ->add('wording')
         ;
     }
     
