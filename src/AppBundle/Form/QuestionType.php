@@ -19,20 +19,20 @@ class QuestionType extends AbstractType
     {
 		$builder->add('wording');
 
-		$builder->add('answers', EntityType::class, array(
+		/*$builder->add('answers', EntityType::class, array(
 			'class' => 'AppBundle:Answer',
 			'choice_label' => 'wording',
-			/*'query_builder' => function (EntityRepository $er) use ($question) {
+			'query_builder' => function (EntityRepository $er) use ($question) {
 				return $er->createQueryBuilder('a')
 					->where('a.question', '?1')->setParameter(1, $question);
-			},*/
+			},
 			'expanded' => true,
 			'multiple' => true
-		));
+		));*/
 		
-		/*$builder->add('answers', CollectionType::class, array(
+		$builder->add('answers', CollectionType::class, array(
             'entry_type' => AnswerType::class
-        ));*/
+        ));
     }
     
     /**

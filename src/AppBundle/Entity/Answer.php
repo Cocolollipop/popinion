@@ -44,6 +44,11 @@ class Answer
      * @Assert\Valid()
      */
     protected $question;
+	
+	/**
+     * @var boolean
+     */
+    private $checked = false;
 
 
     /**
@@ -126,5 +131,29 @@ class Answer
     public function getWording()
     {
         return $this->wording;
+    }
+	
+	/**
+     * Set checked
+     *
+     * @param boolean $checked
+     *
+     * @return Answer
+     */
+    public function setChecked($checked = false)
+    {
+        $this->checked = $checked;
+
+        return $this;
+    }
+
+    /**
+     * Get checked
+     *
+     * @return boolean
+     */
+    public function getChecked()
+    {
+        return $this->checked;
     }
 }
