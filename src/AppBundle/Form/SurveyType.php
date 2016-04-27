@@ -13,7 +13,7 @@ class SurveyType extends AbstractType
     /**
 	 * buildForm
 	 * @param FormBuilderInterface $builder
-     * @param array $options
+   * @param array $options
 	 */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -35,6 +35,8 @@ class SurveyType extends AbstractType
             'data_class' => 'AppBundle\Entity\Survey'
         ));
     }
+
+
 
          public function getName()
   {
