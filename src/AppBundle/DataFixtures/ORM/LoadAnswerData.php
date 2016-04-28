@@ -21,7 +21,7 @@ class LoadAnswerData extends AbstractFixture implements OrderedFixtureInterface
 			
 			foreach($answers[$i] as $wording) {
 				$answer = new Answer();
-				$answer->setWording($wording);
+				$answer->setAWording($wording);
 				$answer->setQuestion($question);
 
 				$manager->persist($answer);

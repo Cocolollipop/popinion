@@ -19,7 +19,7 @@ class LoadQuestionData extends AbstractFixture implements OrderedFixtureInterfac
         
 		foreach($questions as $k => $wording) {
 			$question = new Question();
-			$question->setWording($wording);
+			$question->setQWording($wording);
 			$question->setSurvey($survey);
 
 			$manager->persist($question);

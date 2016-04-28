@@ -12,7 +12,7 @@ class LoadSurveyData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $survey = new Survey();
-		$survey->setWording('Ceci est le sondage Popinion n°1');
+		$survey->setSWording('Ceci est le sondage Popinion n°1');
         $survey->setTitle('Sondage Popinion n°1');
 		$survey->setSlug('sondage-popinion-1');
 
