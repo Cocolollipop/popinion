@@ -4,17 +4,17 @@
 {% block title %}Questionnaire{% endblock %}
 
 {% block content %}
-{{form_errors(form)}}
-    {{form_start(form)}}
-		{{ form_widget(form._token) }}
-		{% for question in form.questions %}
-			<h3>{{ question.Qwording.vars.value }}</h3>
-			{% for answer in question.answers %}
-				<input type="checkbox" id="{{ answer.checked.vars.id }}" name="{{ answer.checked.vars.full_name }}" value="{{ answer.checked.vars.value }}">
-				<label for="{{ answer.checked.vars.full_name }}">{{ answer.Awording.vars.value }}</label>
-			{% endfor %}
-		{% endfor %}
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+    {# form_widget(form._token) #}
+    {% for question in form.questions %}
+        <h3>{{ question.Qwording.vars.value }}</h3>
+        {% for answer in question.answers %}
+            <input type="checkbox" id="{{ answer.checked.vars.id }}" name="{{ answer.checked.vars.full_name }}" value="{{ answer.checked.vars.value }}">
+            <label for="{{ answer.checked.vars.full_name }}">{{ answer.Awording.vars.value }}</label>
+        {% endfor %}
+    {% endfor %}
 
-		<input type="submit" value="Envoyer" />
-    </form>
+    <input type="submit" value="Envoyer" />
+</form>
 {% endblock %}

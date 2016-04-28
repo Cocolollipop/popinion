@@ -86,6 +86,20 @@ class Answer
     }
 
     /**
+     * increment vote count
+     *
+     * @param integer $value
+     *
+     * @return Answer
+     */
+    public function incrementVote($value = 1)
+    {
+        $this->vote += $value;
+
+        return $this;
+    }
+
+    /**
      * Set question
      *
      * @param \AppBundle\Entity\Question $question
@@ -133,7 +147,7 @@ class Answer
         return $this->Awording;
     }
 	
-	/**
+    /**
      * Set checked
      *
      * @param boolean $checked

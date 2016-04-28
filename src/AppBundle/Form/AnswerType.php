@@ -7,34 +7,33 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class AnswerType extends AbstractType
-{
+class AnswerType extends AbstractType {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-	    $builder
-			->add('Awording')
-			->add('checked', CheckboxType::class, array(
-				'required' => false,
-				'label' => null
-			));
-    }
-    
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Answer'
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder
+                ->add('Awording')
+                ->add('checked', CheckboxType::class, array(
+                    'required' => false,
+                    'label' => null
         ));
     }
 
-     public function getName()
-  {
-    return 'appbundle_answer';
-  }
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\Answer',
+            'csrf_protection' => false
+        ));
+    }
+
+    public function getName() {
+        return 'appbundle_answer';
+    }
+
 }
