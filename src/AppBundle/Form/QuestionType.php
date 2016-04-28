@@ -32,7 +32,9 @@ class QuestionType extends AbstractType
 		
 		$builder->add('answers', CollectionType::class, array(
             'entry_type' => AnswerType::class
+            
         ));
+      
     }
     
     /**

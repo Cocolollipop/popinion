@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type as Field;
 use AppBundle\Entity\Survey;
 use AppBundle\Form\SurveyType;
+use AppBundle\Entity\Question;
+use AppBundle\Form\QuestionType;
+use AppBundle\Entity\Answer;
+use AppBundle\Form\AnswerType;
 
 class SurveyController extends Controller
 {
@@ -16,6 +20,7 @@ class SurveyController extends Controller
      */
     public function newSurveyAction(Request $request, $id)
     {
+    	$em = $this->getDoctrine()->getManager();
         //On crée un objet sondage
         $survey = $this->getDoctrine()->getRepository('AppBundle:Survey')->findOneBy(array('id' => $id));
 
@@ -23,13 +28,28 @@ class SurveyController extends Controller
         	//mettre une page d'erreur
         	return $this->redirectToRoute('homepage');
         }
-		$form = $this->createForm(SurveyType::class, $survey);
 
+		$form = $this->createForm(SurveyType::class, $survey);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
 			// ... perform some action, such as saving the task to the database
-			dump('C\'est bon!');die;
+			$counter = $survey->getCounter();
+			$survey->setCounter($counter+1);
+			$list = $survey->getQuestions();
+			foreach($list as $listAnswers)
+			{
+				$idAnswer = $listAnswers->getId();
+				$answer =$this->getDoctrine()->getRepository('AppBundle:Answer')->findOneBy(array('id' => $idAnswer));
+				$vote = $answer->getVote();
+				$answer->setVote($vote+1);
+                
+                
+			}
+		
+
+		
+			$em->flush();
 			return $this->redirectToRoute('homepage');
 		}
 		  
@@ -38,37 +58,6 @@ class SurveyController extends Controller
 		));
     }
 
-    /**
-     * @Route("/creer-sondage", name="add-survey")
-     */
-     public function addAction(Request $request)
-  {
-    // On crée un objet Advert
-    $survey = new Survey();
-
-    // On crée le FormBuilder grâce au service form factory
-    $formBuilder = $this->get('form.factory')->createBuilder('form', $survey);
-
-    // On ajoute les champs de l'entité que l'on veut à notre formulaire
-    $formBuilder
-      ->add('date',      'date')
-      ->add('title',     'text')
-      ->add('content',   'textarea')
-      ->add('author',    'text')
-      ->add('published', 'checkbox')
-      ->add('save',      'submit')
-    ;
-    // Pour l'instant, pas de candidatures, catégories, etc., on les gérera plus tard
-
-    // À partir du formBuilder, on génère le formulaire
-    $form = $formBuilder->getForm();
-
-    // On passe la méthode createView() du formulaire à la vue
-    // afin qu'elle puisse afficher le formulaire toute seule
-    return $this->render('survey/form.html.twig', array(
-      'form' => $form->createView(),
-    ));
-  }
    
 
 }

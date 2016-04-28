@@ -24,7 +24,6 @@ class Question
 
      /**
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
-     * @Assert\Type(type="array")
      * @Assert\Valid()
      */
     protected $answers = [];

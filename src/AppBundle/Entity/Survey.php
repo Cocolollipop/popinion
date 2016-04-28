@@ -25,7 +25,6 @@ class Survey
 
      /**
      * @ORM\OneToMany(targetEntity="Question", mappedBy="survey")
-     * @Assert\Type(type="array")
      * @Assert\Valid()
      */
     protected $questions;
