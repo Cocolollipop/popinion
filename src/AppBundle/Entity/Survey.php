@@ -40,7 +40,7 @@ class Survey
     /**
      * @var string
      *
-     * @ORM\Column(name="Swording", type="string")
+     * @ORM\Column(name="Swording", type="text")
      */
     private $Swording;
 	
