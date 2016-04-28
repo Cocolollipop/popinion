@@ -26,7 +26,7 @@ class SurveyType extends AbstractType
 		    $builder->add('Swording',TextType::class);
         $builder->add('questions', CollectionType::class, array(
             'entry_type' => QuestionType::class,
-            'allow_add'    => true,
+            'allow_add' => true,
         ));
 		$builder->add('save', SubmitType::class);
 
