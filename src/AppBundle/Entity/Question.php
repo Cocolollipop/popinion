@@ -23,13 +23,13 @@ class Question
     private $id;
 
      /**
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"persist"})
      * @Assert\Valid()
      */
     protected $answers = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity="Survey", inversedBy="questions")
+     * @ORM\ManyToOne(targetEntity="Survey", inversedBy="questions", cascade={"persist"})
 	 * @ORM\JoinColumn(name="survey_id", referencedColumnName="id")
      * @Assert\Type(type="AppBundle\Entity\Survey")
      * @Assert\Valid()

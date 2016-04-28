@@ -12,6 +12,9 @@ use AppBundle\Entity\Question;
 use AppBundle\Form\QuestionType;
 use AppBundle\Entity\Answer;
 use AppBundle\Form\AnswerType;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 class SurveyController extends Controller
 {
@@ -21,43 +24,83 @@ class SurveyController extends Controller
     public function newSurveyAction(Request $request, $id)
     {
     	$em = $this->getDoctrine()->getManager();
-        //On crée un objet sondage
-        $survey = $this->getDoctrine()->getRepository('AppBundle:Survey')->findOneBy(array('id' => $id));
+        //Create an object survey
+        $survey = $em->getRepository('AppBundle:Survey')->findOneBy(array('id' => $id));
 
         if($survey == null){
-        	//mettre une page d'erreur
+        	//add an error page
         	return $this->redirectToRoute('homepage');
         }
 
 		$form = $this->createForm(SurveyType::class, $survey);
 		$form->handleRequest($request);
 
+
 		if ($form->isSubmitted() && $form->isValid()) {
-			// ... perform some action, such as saving the task to the database
+
+
+			//add a vote
 			$counter = $survey->getCounter();
-			$survey->setCounter($counter+1);
+			$counter= $counter+1;
+			$survey->setCounter($counter);
 			$list = $survey->getQuestions();
+		
+
 			foreach($list as $listAnswers)
 			{
 				$idAnswer = $listAnswers->getId();
 				$answer =$this->getDoctrine()->getRepository('AppBundle:Answer')->findOneBy(array('id' => $idAnswer));
 				$vote = $answer->getVote();
 				$answer->setVote($vote+1);
-                
-                
-			}
-		
+					$em->persist($answer);
+						
 
-		
+			}
+			$em->detach($survey);
 			$em->flush();
+			
+
+			//Redirection
+			//NB: Add a message
 			return $this->redirectToRoute('homepage');
-		}
-		  
+		} 
+		//NB: Add a constraint
 		return $this->render('survey/form.html.twig', array(
 			'form' => $form->createView(),
 		));
     }
 
-   
+	/**
+     * @Route("/creer-sondage", name="add-survey")
+     */
+    public function addSurveyAction(Request $request)
+    {
+
+    $survey = new Survey();
+	$form = $this->createForm(SurveyType::class, $survey);
+	$form->handleRequest($request);
+
+
+		if ($form->isSubmitted() && $form->isValid())
+		 {
+
+				$em = $this->getDoctrine()->getManager();
+    			$em->persist($survey);
+    			$em->flush();
+
+				return $this->redirectToRoute('homepage');
+
+
+		}
+		return $this->render('survey/create.html.twig', array(
+			'form' => $form->createView()
+
+		));
+
+
+
+
+	}
+
 
 }

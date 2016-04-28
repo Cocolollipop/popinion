@@ -7,9 +7,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType; 
+
+
 
 class SurveyType extends AbstractType
 {
+
+
     /**
 	 * buildForm
 	 * @param FormBuilderInterface $builder
@@ -17,13 +22,13 @@ class SurveyType extends AbstractType
 	 */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title');
-		$builder->add('wording');
-
+        $builder->add('title',TextType::class);
+		    $builder->add('wording',TextType::class);
         $builder->add('questions', CollectionType::class, array(
             'entry_type' => QuestionType::class
         ));
-		$builder->add('send', SubmitType::class);
+		$builder->add('save', SubmitType::class);
+
     }
 
     /**
@@ -40,6 +45,6 @@ class SurveyType extends AbstractType
 
          public function getName()
   {
-    return 'pop_appbundle_survey';
+    return 'appbundle_survey';
   }
 }

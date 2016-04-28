@@ -24,13 +24,15 @@ class Survey
 
 
      /**
-     * @ORM\OneToMany(targetEntity="Question", mappedBy="survey")
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="survey", cascade={"persist"})
      * @Assert\Valid()
      */
     protected $questions;
 
 
-    /** 
+    /**
+     * @var int
+     * 
      * @ORM\Column(name="counter", type="integer")
      */
     private $counter = 0;
@@ -38,14 +40,14 @@ class Survey
     /**
      * @var string
      *
-     * @ORM\Column(name="wording", type="text", nullable=true)
+     * @ORM\Column(name="wording", type="text")
      */
     private $wording;
 	
 	/**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 	

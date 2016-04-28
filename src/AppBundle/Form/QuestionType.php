@@ -49,6 +49,6 @@ class QuestionType extends AbstractType
 
          public function getName()
   {
-    return 'pop_appbundle_question';
+    return 'appbundle_question';
   }
 }

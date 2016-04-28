@@ -35,6 +35,6 @@ class AnswerType extends AbstractType
 
      public function getName()
   {
-    return 'pop_appbundle_answer';
+    return 'appbundle_answer';
   }
 }
