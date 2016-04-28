@@ -25,9 +25,9 @@ class Answer
     /**
      * @var string
      *
-     * @ORM\Column(name="wording", type="text", nullable=true)
+     * @ORM\Column(name="Awording", type="string", nullable=true)
      */
-    private $wording;
+    private $Awording;
 
 
     /**
@@ -110,27 +110,27 @@ class Answer
     }
 
     /**
-     * Set wording
+     * Set Awording
      *
-     * @param string $wording
+     * @param string $Awording
      *
      * @return Answer
      */
-    public function setWording($wording)
+    public function setAwording($Awording)
     {
-        $this->wording = $wording;
+        $this->Awording = $Awording;
 
         return $this;
     }
 
     /**
-     * Get wording
+     * Get Awording
      *
      * @return string
      */
-    public function getWording()
+    public function getAwording()
     {
-        return $this->wording;
+        return $this->Awording;
     }
 	
 	/**

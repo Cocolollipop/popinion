@@ -40,9 +40,9 @@ class Survey
     /**
      * @var string
      *
-     * @ORM\Column(name="wording", type="text")
+     * @ORM\Column(name="Swording", type="string")
      */
-    private $wording;
+    private $Swording;
 	
 	/**
      * @var string
@@ -136,27 +136,27 @@ class Survey
     }
 
     /**
-     * Set wording
+     * Set Swording
      *
-     * @param string $wording
+     * @param string $Swording
      *
      * @return Survey
      */
-    public function setWording($wording)
+    public function setSwording($Swording)
     {
-        $this->wording = $wording;
+        $this->Swording = $Swording;
 
         return $this;
     }
 
     /**
-     * Get wording
+     * Get Swording
      *
      * @return string
      */
-    public function getWording()
+    public function getSwording()
     {
-        return $this->wording;
+        return $this->Swording;
     }
 
     /**

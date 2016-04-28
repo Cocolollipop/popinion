@@ -23,9 +23,10 @@ class SurveyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title',TextType::class);
-		    $builder->add('wording',TextType::class);
+		    $builder->add('Swording',TextType::class);
         $builder->add('questions', CollectionType::class, array(
-            'entry_type' => QuestionType::class
+            'entry_type' => QuestionType::class,
+            'allow_add'    => true,
         ));
 		$builder->add('save', SubmitType::class);
 

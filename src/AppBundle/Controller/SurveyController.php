@@ -76,9 +76,31 @@ class SurveyController extends Controller
     public function addSurveyAction(Request $request)
     {
 
+	/**$em = $this->getDoctrine()->getManager();
     $survey = new Survey();
 	$form = $this->createForm(SurveyType::class, $survey);
 	$form->handleRequest($request);
+**/
+//2e methode
+ $survey = new Survey();
+
+        // dummy code - this is here just so that the Task has some tags
+        // otherwise, this isn't an interesting example
+        $quest1 = new Question();
+        $quest1->name = 'wording1';
+        $survey->getQuestions()->add($quest1);
+        $answer1 = new Answer();
+        $answer1->name = 'wording2';
+        $quest1->getAnswers()->add($answer1);
+        $answer2 = new Answer();
+        $answer2->name = 'wording3';
+        $quest1->getAnswers()->add($answer2);
+
+   
+
+        $form = $this->createForm(SurveyType::class, $survey);
+
+        $form->handleRequest($request);
 
 
 		if ($form->isSubmitted() && $form->isValid())

@@ -7,7 +7,18 @@
 
 {# Le formulaire reste inchangé #}
 <div class="well">
-  {{ form(form) }}
+ {{ form_start(form) }}
+    {# render the survey's only field: description #}
+    {{ form_row(form.title) }}
+
+    <h3>Questions</h3>
+    <ul class="questions" data-prototype="{{ form_widget(form.questions.vars.prototype)|e }}">
+        {# iterate over each existing  Question and render its only field: name #}
+        {% for question in form.questions %}
+            <li>{{ form_row(question.Qwording) }}</li>
+        {% endfor %}
+    </ul>
+{{ form_end(form) }}
 </div>
 
 
@@ -17,7 +28,7 @@
 
 {# Voici le script en question : #}
 <script type="text/javascript">
-  $(document).ready(function() {
+ $(document).ready(function() {
     // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
     var $container = $('div#oc_platformbundle_advert_categories');
 
@@ -79,5 +90,7 @@
       });
     }
   });
+
+}
 </script>
 {% endblock %}

@@ -17,7 +17,7 @@ class QuestionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-		$builder->add('wording');
+		$builder->add('Qwording');
 
 		/*$builder->add('answers', EntityType::class, array(
 			'class' => 'AppBundle:Answer',

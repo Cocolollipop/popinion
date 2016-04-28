@@ -39,9 +39,9 @@ class Question
     /**
      * @var string
      *
-     * @ORM\Column(name="wording", type="text", nullable=true)
+     * @ORM\Column(name="Qwording", type="string", nullable=true)
      */
-    private $wording;
+    private $Qwording;
 	
 	 /**
      * Constructor
@@ -87,27 +87,27 @@ class Question
 
 
     /**
-     * Set wording
+     * Set Qwording
      *
-     * @param string $wording
+     * @param string $Qwording
      *
      * @return Question
      */
-    public function setWording($wording)
+    public function setQwording($Qwording)
     {
-        $this->wording = $wording;
+        $this->Qwording = $Qwording;
 
         return $this;
     }
 
     /**
-     * Get wording
+     * Get Qwording
      *
      * @return string
      */
-    public function getWording()
+    public function getQwording()
     {
-        return $this->wording;
+        return $this->Qwording;
     }
 
     /**
