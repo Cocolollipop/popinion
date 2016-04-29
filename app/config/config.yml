@@ -91,3 +91,31 @@ liip_imagine:
             filters:
                 thumbnail: { size: [120, 90], mode: inset }
 
+hwi_oauth:
+    firewall_name: oauth
+    resource_owners:
+        facebook:
+            type: facebook
+            client_id: "1543025316000798"
+            client_secret: "1506e662169adbc638d7ad74f7079ce6"
+            scope: email
+            infos_url:     "https://graph.facebook.com/me?fields=username,name,email,picture.type(large)"
+            paths:
+                email:          email
+                profilepicture: picture.data.url
+            options:
+                display: popup #dialog is optimized for popup window
+        twitter:
+            type: twitter
+            client_id: "xxx"
+            client_secret: "xxx"
+            paths:
+                profilepicture: profile_image_url
+        google:
+            type: google
+            client_id: "369859076996-vf19n2f520lbqpo3rl9804hvf1ivf075.apps.googleusercontent.com"
+            client_secret: "adZKJo55_uW9s5Ktwc1E2_tR"
+            scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+            paths:
+                email:           email
+                profilepicture:  picture

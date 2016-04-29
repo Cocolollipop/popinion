@@ -1,7 +1,5 @@
 <?php
-
 namespace AppBundle\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +13,7 @@ use AppBundle\Form\AnswerType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-
 class SurveyController extends Controller {
-
     /**
      * @Route("/sondage/{slug}", name="new-survey")
      */
@@ -31,16 +27,13 @@ class SurveyController extends Controller {
             //add an error page
             return $this->redirectToRoute('homepage');
         }
-
         $form = $this->createForm(SurveyType::class, $survey, ['method' => 'PATCH']);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-
             //add a vote
             $counter = $survey->getCounter();
             $survey->setCounter(++$counter);
-
             $questions = $survey->getQuestions();
             foreach ($questions as $question) {
                 $answers = $question->getAnswers();
@@ -51,8 +44,6 @@ class SurveyController extends Controller {
                 }
             }
             $em->flush();
-
-
             //Redirection
             //NB: Add a message
             return $this->redirectToRoute('homepage');
@@ -62,12 +53,10 @@ class SurveyController extends Controller {
                     'form' => $form->createView(),
         ));
     }
-
     /**
      * @Route("/creer-sondage", name="add-survey")
      */
     public function addSurveyAction(Request $request) {
-
         /*         * $em = $this->getDoctrine()->getManager();
           $survey = new Survey();
           $form = $this->createForm(SurveyType::class, $survey);
@@ -75,7 +64,6 @@ class SurveyController extends Controller {
          * */
 //2e methode
         $survey = new Survey();
-
         // dummy code - this is here just so that the Task has some tags
         // otherwise, this isn't an interesting example
         $quest1 = new Question();
@@ -87,25 +75,16 @@ class SurveyController extends Controller {
         $answer2 = new Answer();
         $answer2->name = 'wording3';
         $quest1->getAnswers()->add($answer2);
-
-
-
         $form = $this->createForm(SurveyType::class, $survey);
-
         $form->handleRequest($request);
-
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($survey);
             $em->flush();
-
             return $this->redirectToRoute('homepage');
         }
         return $this->render('survey/create.html.twig', array(
                     'form' => $form->createView()
         ));
     }
-
 }

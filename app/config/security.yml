@@ -11,8 +11,39 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
+        oauth:
+            id: my_oauth_members
 
     firewalls:
+        oauth:
+            pattern:    .*
+            anonymous: ~
+            provider: oauth
+            oauth:
+                resource_owners:
+                    facebook: "/oauth/login/check-facebook"
+                    twitter: "/oauth/login/check-twitter"
+                    google: "/oauth/login/check-google"
+                login_path: /oauth/login
+                failure_path: /oauth/login
+                check_path: /oauth/login_check
+                default_target_path: /oauth/target
+                oauth_user_provider:
+                    service: my_oauth_members
+
+            logout:       true
+            anonymous:    true
+
+        login:
+            pattern:  .*
+            security: false
+
+            remember_me:
+                key: "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~ # Defaults to the current domain from $_SERVER
+
         main:
             pattern: ^/
             form_login:
@@ -20,15 +51,21 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 # if you are using Symfony < 2.8, use the following config instead:
                 # csrf_provider: form.csrf_provider
+                check_path: /login_check
+                login_path: /login
 
             logout:       true
             anonymous:    true
 
+
     access_control:
+        - { path: ˆ/oauth/target, role: ROLE_OAUTH_USER }
+        - { path: ˆ/oauth/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:

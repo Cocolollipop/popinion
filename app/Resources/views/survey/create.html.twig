@@ -35,7 +35,6 @@
 // setup an "add a Question" link
 var $addQuestionLink = $('<a href="#" class="add_Question_link">Add a Question</a>');
 var $newLinkLi = $('<li></li>').append($addQuestionLink);
-
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of Questions
    var $collectionHolder = $('ul.questions');
@@ -57,7 +56,6 @@ jQuery(document).ready(function() {
     
     
 });
-
 function addQuestionForm($collectionHolder, $newLinkLi) {
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');

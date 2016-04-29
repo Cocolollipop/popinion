@@ -1,4 +1,11 @@
 
+oauth_register:
+    pattern: /oauthRegister
+    defaults: { _controller: AppBundle:Security:oauthRegister }
+my_oauth:
+    resource: "@AppBundle/Resources/config/routingSecurityOAuth.yml"
+    prefix:   /oauth/
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
