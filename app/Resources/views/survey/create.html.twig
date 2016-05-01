@@ -10,19 +10,10 @@
 {# Le formulaire reste inchangé #}
 <div class="well">
  
-{{ form_start(form) }}
-    {# render the task's only field: description #}
-    {{ form_row(form.title) }}
+{{ form(form) }}
 
-    <h3>Questions</h3>
-    <ul class="questions" data-prototype="{{ form_widget(form.questions.vars.prototype)|e }}">
-        {# iterate over each existing Question and render its only field: name #}
-        {% for question in form.questions %}
-            <li>{{ form_row(question.Qwording) }}</li>
-        {% endfor %}
-    </ul>
-    
-{{ form_end(form) }}
+
+}
 </div>
 
 

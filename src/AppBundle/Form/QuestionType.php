@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class QuestionType extends AbstractType {
 
@@ -19,6 +20,7 @@ class QuestionType extends AbstractType {
             'entry_type' => AnswerType::class,
             'allow_add' => true,
         ));
+        $builder->add('save', SubmitType::class);
     }
 
     /**
