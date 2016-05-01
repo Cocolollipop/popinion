@@ -3,6 +3,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Form\Extension\Core\Type as Field;
 use AppBundle\Entity\Survey;
 use AppBundle\Form\SurveyType;
@@ -62,6 +63,9 @@ class SurveyController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $survey = new Survey();
+        $question = new Question();
+        $question->addAnswer(new Answer());
+        $survey->addQuestion($question);
         $form = $this->createForm(SurveyType::class, $survey);
         $form->handleRequest($request);
 
@@ -76,9 +80,8 @@ class SurveyController extends Controller {
             $survey->setSlug($slug);  
             $em->persist($survey); 
             $em->flush(); 
-           $url = $this->generateUrl('popo',array('slug' => $slug )
-
-        );
+           return $this->redirect($this->generateUrl('add-question', array( 'slug' => $slug, )));
+        
         }
      
         
@@ -104,16 +107,13 @@ class SurveyController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($question);
-            $em->flush();
-            $id= $question->getId();
-            $question = $em->getRepository('AppBundle:Question')->findOneById($id);
             $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
             $question->setSurvey($survey);
             $em->persist($question);
             $em->flush();
-            return $this->redirectToRoute('homepage');
+
+            return $this->redirect($this->generateUrl('add-reponse', ['id' => $question->getId()] ));
         }
-     
         
         //NB: Add a constraint
         return $this->render('survey/create.html.twig', array(
@@ -123,42 +123,38 @@ class SurveyController extends Controller {
        
 
     }
-}
 
-    /**
-     * @Route("/creer-question", name="add-squestion")
+     /**
+     * @Route("/rep/{id}", name="add-reponse")
      */
-    //public function addQuestionAction(Request $request) {
-        /** $em = $this->getDoctrine()->getManager();
-          $survey = new Survey();
-          $form = $this->createForm(SurveyType::class, $survey);
-          $form->handleRequest($request);
-        
-//2e methode
-        $survey = new Survey();
-        // dummy code - this is here just so that the Task has some tags
-        // otherwise, this isn't an interesting example
-        $quest1 = new Question();
-        $quest1->name = 'wording1';
-        $survey->getQuestions()->add($quest1);
-        $answer1 = new Answer();
-        $answer1->name = 'wording2';
-        $quest1->getAnswers()->add($answer1);
-        $answer2 = new Answer();
-        $answer2->name = 'wording3';
-        $quest1->getAnswers()->add($answer2);
-        $form = $this->createForm(SurveyType::class, $survey);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+    public function creerReponseAction(Request $request, $id) {
+
             $em = $this->getDoctrine()->getManager();
-            $em->persist($survey);
+        //On récupère le sondage
+        $question = $em->getRepository('AppBundle:Question')->find($id);
+        $answer= new Answer();
+        $form = $this->createForm(AnswerType::class, $answer);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($question);
+            $em->flush();
+            $id= $question->getId();
+            $question = $em->getRepository('AppBundle:Question')->findOneById($id);
+            $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
+            $question->setSurvey($survey);
+            $em->persist($question);
             $em->flush();
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('survey/create.html.twig', array(
-                    'form' => $form->createView()
-        ));
-    }
- **/
-
         
+        //NB: Add a constraint
+         return $this->render('question/newAnswer.html.twig', array(
+            'form' => $form->createView(),
+        ));
+       
+
+    }
+}
+
+  

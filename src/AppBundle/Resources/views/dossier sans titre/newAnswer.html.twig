@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creer Réponses{% endblock %}
+
+<form action="..." method="POST" {{ form_enctype(form) }}>
+    {# affiche l'unique champ de la tâche : description #}
+    {{ form_row(form.description) }}
+
+    <h3>Tags</h3>
+    <ul class="answers"  data-prototype="{{ form_widget(form.answers.vars.prototype.Awording)|e }}>
+        {% for answer in form.answers %}
+            <li>{{ form_row(answer.Awording) }}</li>
+        {% endfor %}
+    </ul>
+
+    {{ form_rest(form) }}
+    {# ... #}
+</form>
+
+
+<script type="text/javascript">
+
+var collectionHolder = $('ul.answers');
+
+// ajoute un lien « add a tag »
+var $addAnswerLink = $('<a href="#" class="add_answer_link">Ajouter une réponse</a>');
+var $newLinkLi = $('<li></li>').append($addAnswerLink);
+
+jQuery(document).ready(function() {
+    // ajoute l'ancre « ajouter un tag » et li à la balise ul
+    collectionHolder.append($newLinkLi);
+
+    $addAnswer Link.on('click', function(e) {
+        // empêche le lien de créer un « # » dans l'URL
+        e.preventDefault();
+
+        // ajoute un nouveau formulaire tag (voir le prochain bloc de code)
+        addAnswerForm(collectionHolder, $newLinkLi);
+    });
+});
+
+</script>
+{% endblock %}
