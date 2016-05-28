@@ -119,6 +119,7 @@ class Question
      */
     public function addAnswer(\AppBundle\Entity\Answer $answer)
     {
+	    $answer->setQuestion($this);
         $this->answers[] = $answer;
 
         return $this;
@@ -131,6 +132,7 @@ class Question
      */
     public function removeAnswer(\AppBundle\Entity\Answer $answer)
     {
+	    $answer->setQuestion(null);
         $this->answers->removeElement($answer);
     }
 

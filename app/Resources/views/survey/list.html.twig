@@ -1,0 +1,12 @@
+{# app/Resources/views/survey/form.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Questionnaire{% endblock %}
+
+{% block content %}
+	<ul id="survey-list">
+    {% for survey in surveys %}
+		<li class="survey-item"><a href="{{ path('new-survey', {'slug': survey.slug}) }}">{{ survey.title }}</a></li>
+    {% endfor %}
+	</ul>
+{% endblock %}

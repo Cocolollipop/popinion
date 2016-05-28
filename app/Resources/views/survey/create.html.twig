@@ -8,6 +8,11 @@
     {{ form_errors(form) }}
     {{ form_start(form) }}
     {# form_widget(form._token) #}
+	<div>
+        {{ form_errors(form.title) }}
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
     <div>
         {{ form_errors(form.Swording) }}
         {{ form_label(form.Swording) }}
@@ -15,15 +20,15 @@
     </div>
     <h4>Questions : </h4>
     <ul class="questionList">
-    {% for question in form.questions %}
-        <li class="questionItem">
+    {% for q, question in form.questions %}
+        <li class="questionItem" data-id="{{ q }}">
             {{ form_errors(question.Qwording) }}
             {{ form_label(question.Qwording) }}
             {{ form_widget(question.Qwording) }}
             <h5>Réponses : </h5>
             <ul class="answerList">
-            {% for answer in question.answers %}
-                <li class="answerItem">
+            {% for a, answer in question.answers %}
+                <li class="answerItem" data-id="{{ a }}">
                 {{ form_errors(answer.Awording) }}
                 {{ form_label(answer.Awording) }}
                 {{ form_widget(answer.Awording) }}
@@ -93,6 +98,7 @@ function addQuestionForm() {
     // Display the form in the page in an li, before the "Add a Question" link li
 
     var newQuestionForm = questionForm.clone();
+	
 
     newQuestionForm.find(':input:first').attr('id', questionInputId.replace(/(.*?)_(\d+)_/, '$1_' + (++questionIndex) + '_'));
     newQuestionForm.find('label:first').attr('for', questionInputId.replace(/(.*?)_(\d+)_/, '$1_' + questionIndex + '_'));
@@ -105,10 +111,11 @@ function addQuestionForm() {
     newAnswerForm.find(':input:first').attr('id', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)_/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
     newAnswerForm.find('label:first').attr('for', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
     newAnswerForm.find(':input:first').attr('name', answerInputName.replace(/(.*?)\[(\d+)\](.*?)\[(\d+)\]/, '$1[' + questionIndex + ']$3[' + answerIndex + ']'));
+	newAnswerForm.data('id', answerIndex);
 
     
 
-    var $newFormLi = $('<li class="questionItem"></li>').append(newQuestionForm.html());
+    var $newFormLi = $('<li class="questionItem" data-id="'+questionIndex+'"></li>').append(newQuestionForm.html());
     
     // also add a remove button, just for this example
     $newFormLi.append('<a href="#" class="remove-question">x</a>');
@@ -143,11 +150,15 @@ function initAnswerForm($questionForm) {
 function addAnswerForm($this) {
     
     var newAnswerForm = answerForm.clone();
+	
+	var anwserNode = $($this).parent().prev();
+	var questionIndex = anwserNode.closest('li.questionItem').data('id');
+	var answerIndex = anwserNode.data('id');
     // Display the form in the page in an li, before the "Add a Question" link li
     newAnswerForm.find(':input:first').attr('id', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)_/, '$1_' + questionIndex + '_$3_' + (++answerIndex) + '_'));
     newAnswerForm.find('label:first').attr('for', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
     newAnswerForm.find(':input:first').attr('name', answerInputName.replace(/(.*?)\[(\d+)\](.*?)\[(\d+)\]/, '$1[' + questionIndex + ']$3[' + answerIndex + ']'));
-    var $newAnswerFormLi = $('<li class="answerItem"></li>').append(newAnswerForm.html());
+    var $newAnswerFormLi = $('<li class="answerItem" data-id="'+answerIndex+'"></li>').append(newAnswerForm.html());
     
     // also add a remove button, just for this example
     $newAnswerFormLi.append('<a href="#" class="remove-answer">x</a>');

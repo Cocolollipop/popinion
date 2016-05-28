@@ -22,7 +22,7 @@ class QuestionType extends AbstractType {
         ->add('answers', CollectionType::class, array(
             'entry_type' => AnswerType::class,
             'allow_add' => true,
-             'by_reference' => false,
+            'by_reference' => false
         ));
     }
 

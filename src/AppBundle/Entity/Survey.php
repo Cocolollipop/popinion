@@ -110,6 +110,7 @@ class Survey
      */
     public function addQuestion(\AppBundle\Entity\Question $question)
     {
+	    $question->setSurvey($this);
         $this->questions[] = $question;
 
         return $this;
@@ -122,6 +123,7 @@ class Survey
      */
     public function removeQuestion(\AppBundle\Entity\Question $question)
     {
+	    $question->setSurvey(null);
         $this->questions->removeElement($question);
     }
 

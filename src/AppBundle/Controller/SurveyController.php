@@ -18,6 +18,16 @@ class SurveyController extends Controller {
 
 
     /**
+     * @Route("/sondages", name="survey-list")
+     */
+    public function listSurveyAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $surveys = $em->getRepository('AppBundle:Survey')->findAll();
+        return $this->render('survey/list.html.twig', ['surveys' => $surveys]);
+    }
+	
+    /**
      * @Route("/sondage/{slug}", name="new-survey")
      */
     public function newSurveyAction(Request $request, $slug)
@@ -70,33 +80,23 @@ class SurveyController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($survey);      
-             $em->flush();
-             $id= $survey->getId();
-            $survey = $em->getRepository('AppBundle:Survey')->findOneById($id);
-            $slug = $survey->getTitle();
-            $slug = str_replace(" ", '-', $slug);
-            $slug = $slug.'-'.$id;
-            $survey->setSlug($slug);  
-            $em->persist($survey); 
+            $em->persist($survey);
+            $em->flush();
+            $slug = str_replace(" ", '-', $survey->getTitle());
+            $slug = $slug.'-'.$survey->getId();
+            $survey->setSlug($slug);
             $em->flush(); 
-           return $this->redirect($this->generateUrl('add-question', array( 'slug' => $slug, )));
-        
+            return $this->redirect($this->generateUrl('survey-list'));
         }
-     
         
         //NB: Add a constraint
-        return $this->render('survey/create.html.twig', array(
-                    'form' => $form->createView(),
-                    )
-                   );
-
+        return $this->render('survey/create.html.twig', ['form' => $form->createView()]);
     }
 
      /**
      * @Route("/popo/{slug}", name="add-question")
      */
-    public function addQuestionAction(Request $request, $slug) {
+    /*public function addQuestionAction(Request $request, $slug) {
 
         $em = $this->getDoctrine()->getManager();
         //On récupère le sondage
@@ -122,12 +122,12 @@ class SurveyController extends Controller {
                    );
        
 
-    }
+    }*/
 
      /**
      * @Route("/rep/{id}", name="add-reponse")
      */
-    public function creerReponseAction(Request $request, $id) {
+    /*public function creerReponseAction(Request $request, $id) {
 
             $em = $this->getDoctrine()->getManager();
         //On récupère le sondage
@@ -154,7 +154,7 @@ class SurveyController extends Controller {
         ));
        
 
-    }
+    }*/
 }
 
   
