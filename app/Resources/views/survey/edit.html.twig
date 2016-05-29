@@ -80,9 +80,10 @@ $(document).ready(function() {
         addQuestionForm();
     });
 
-    initAnswerForm($('.questionItem'));
+
 
     questionForm = $('.questionItem').clone();
+    initAnswerForm(questionForm);
     var firstInput = questionForm.find(':input');
     questionInputId = firstInput.attr('id');
     questionInputName = firstInput.attr('name');
@@ -101,6 +102,7 @@ function addQuestionForm() {
     // Display the form in the page in an li, before the "Add a Question" link li
 
     var newQuestionForm = questionForm.clone();
+
     
 
     newQuestionForm.find(':input:first').attr('id', questionInputId.replace(/(.*?)_(\d+)_/, '$1_' + (++questionIndex) + '_'));
@@ -113,13 +115,11 @@ function addQuestionForm() {
     answerIndex = 0;
 
     newAnswerForm.find(':input:first').attr('id', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)_/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
-    newAnswerForm.find('label:first').attr('for', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
+    newAnswerForm.find('label:first').attr('for', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)/, '$1_' + questionIndex + '_$3_' + answerIndex ));
     newAnswerForm.find(':input:first').attr('name', answerInputName.replace(/(.*?)\[(\d+)\](.*?)\[(\d+)\]/, '$1[' + questionIndex + ']$3[' + answerIndex + ']'));
       newAnswerForm.find(':input:first').attr('value'," ");
 
-    newAnswerForm.data('id', answerIndex);
-
-    
+    newAnswerForm.data('id', answerIndex);   
 
     var $newFormLi = $('<li class="questionItem" data-id="'+questionIndex+'"></li>').append(newQuestionForm.html());
     
@@ -128,7 +128,7 @@ function addQuestionForm() {
     
     $('li.addQuestion').before($newFormLi);
 
-    initAnswerForm(newQuestionForm);
+    //initAnswerForm(newQuestionForm);
     
     // handle the removal, just for this example
     $('.remove-question').click(function(e) {
@@ -146,8 +146,12 @@ function initAnswerForm($questionForm) {
     $newAnswerLinkLi = $('<li></li>').append($addAnswerLink);
 
     // Get the ul that holds the collection of Questions
-   var $collectionHolder = $questionForm.find('ul.answerList');
-    
+   var $collectionHolder = $questionForm.find('ul.answerList').first();
+    var answerItem = $collectionHolder.find('li.answerItem').first();
+    answerItem.attr('value',"");
+    $collectionHolder.children().remove();
+    $collectionHolder.append(answerItem.wrap('<li class="answerItem" data-id="0"></li>'));
+
     // add the "add a Answer" anchor and li to the Answers ul
     $collectionHolder.append($newAnswerLinkLi);
 
@@ -162,7 +166,7 @@ function addAnswerForm($this) {
     var answerIndex = anwserNode.data('id');
     // Display the form in the page in an li, before the "Add a Question" link li
     newAnswerForm.find(':input:first').attr('id', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)_/, '$1_' + questionIndex + '_$3_' + (++answerIndex) + '_'));
-    newAnswerForm.find('label:first').attr('for', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
+    newAnswerForm.find('label:first').attr('for', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)/, '$1_' + questionIndex + '_$3_' + answerIndex ));
     newAnswerForm.find(':input:first').attr('name', answerInputName.replace(/(.*?)\[(\d+)\](.*?)\[(\d+)\]/, '$1[' + questionIndex + ']$3[' + answerIndex + ']'));
     newAnswerForm.find(':input:first').attr('value'," "); //Champs vide
     var $newAnswerFormLi = $('<li class="answerItem" data-id="'+answerIndex+'"></li>').append(newAnswerForm.html());

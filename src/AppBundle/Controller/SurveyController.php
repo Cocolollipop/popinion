@@ -44,11 +44,20 @@ class SurveyController extends Controller {
            }
 
         if ($form->isSubmitted() && $form->isValid()) {
+                $questions = $survey->getQuestions();
+            foreach ($questions as $question) {
+                $answers = $question->getAnswers();
+                foreach ($answers as $answer) {    
+                        $answer->setVote();
+                    
+                }
+            }
             $em->persist($survey);
             $em->flush();
             $slug = str_replace(" ", '-', $survey->getTitle());
             $slug = $slug.'-'.$survey->getId();
             $survey->setSlug($slug);
+            $em->persist($survey);
             $em->flush(); 
             return $this->redirect($this->generateUrl('survey-list'));
         }
@@ -57,6 +66,19 @@ class SurveyController extends Controller {
         return $this->render('survey/edit.html.twig',['form' => $form->createView(), 'nbQuestion' => $nbQuestion]
             );
     }
+     /**
+     * @Route("/sondage/delete/{slug}", name="delete-survey")
+     */
+    public function deleteSurveyAction(Request $request, $slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+         $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
+         $em->remove($survey);
+
+         $em->flush();
+        
+            return $this->redirect($this->generateUrl('survey-list'));
+        }
 
 
     /**
