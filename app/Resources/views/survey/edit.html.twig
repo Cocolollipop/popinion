@@ -1,0 +1,186 @@
+{# app/Resources/views/survey/create.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Creer{% endblock %}
+
+{% block content %}
+    <h2>Nouveau sondage : </h2>
+
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+    {# form_widget(form._token) #}
+    <div>
+        {{ form_errors(form.title) }}
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+    <div>
+        {{ form_errors(form.Swording) }}
+        {{ form_label(form.Swording) }}
+        {{ form_widget(form.Swording) }}
+    </div>
+    <h4>Questions : </h4>
+    <ul class="questionList">
+    {% for q, question in form.questions %}
+        <li class="questionItem" data-id="{{ q }}">
+            {{ form_errors(question.Qwording) }}
+            {{ form_label(question.Qwording) }}
+            {{ form_widget(question.Qwording) }}
+            <h5>Réponses : </h5>
+            <ul class="answerList">
+            {% for a, answer in question.answers %}
+                <li class="answerItem" data-id="{{ a }}">
+                {{ form_errors(answer.Awording) }}
+                {{ form_label(answer.Awording) }}
+                {{ form_widget(answer.Awording) }}
+                </li>
+            {% endfor %}
+            </ul>
+        </li>
+        
+    {% endfor %}
+    <li class="addQuestion"><a href="#" class="addQuestionLink">Add a Question</a></li>
+    </ul>
+
+    <input type="submit" value="Envoyer" />
+</form>
+{% endblock %}
+
+{% block javascripts %}
+{# On charge la bibliothèque jQuery. Ici, je la prends depuis le CDN google
+   mais si vous l'avez en local, changez simplement l'adresse. #}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{# Voici le script en question : #}
+<script type="text/javascript">
+
+var $addAnswerLink = $('<a href="#" class="addAnswerLink">Ajouter une réponse</a>');
+var $newAnswerLinkLi = $('<li></li>').append($addAnswerLink);
+
+var questionForm = null;
+var answerForm = null;
+
+var questionIndex = {{nbQuestion-1}};
+var questionInputId = '';
+var questionInputName = '';
+
+var answerIndex = 0;
+var answerInputId = '';
+var answerInputName = '';
+
+
+
+
+$(document).ready(function() {
+    $('ul.questionList a.addQuestionLink').on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        
+        // add a new Question form (see code block below)
+        addQuestionForm();
+    });
+
+    initAnswerForm($('.questionItem'));
+
+    questionForm = $('.questionItem').clone();
+    var firstInput = questionForm.find(':input');
+    questionInputId = firstInput.attr('id');
+    questionInputName = firstInput.attr('name');
+    
+    answerForm = $('.answerItem').clone();
+
+    var firstAnswerInput = answerForm.find(':input');
+    answerInputId = firstAnswerInput.attr('id');
+    answerInputName = firstAnswerInput.attr('name');
+    
+    
+});
+
+function addQuestionForm() {
+    
+    // Display the form in the page in an li, before the "Add a Question" link li
+
+    var newQuestionForm = questionForm.clone();
+    
+
+    newQuestionForm.find(':input:first').attr('id', questionInputId.replace(/(.*?)_(\d+)_/, '$1_' + (++questionIndex) + '_'));
+    newQuestionForm.find('label:first').attr('for', questionInputId.replace(/(.*?)_(\d+)_/, '$1_' + questionIndex + '_'));
+    newQuestionForm.find(':input:first').attr('name', questionInputName.replace(/(.*?)\[(\d+)\]/, '$1[' + questionIndex + ']'));
+    newQuestionForm.find(':input:first').attr('value'," ");
+
+    var newAnswerForm = newQuestionForm.find('.answerItem');
+
+    answerIndex = 0;
+
+    newAnswerForm.find(':input:first').attr('id', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)_/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
+    newAnswerForm.find('label:first').attr('for', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
+    newAnswerForm.find(':input:first').attr('name', answerInputName.replace(/(.*?)\[(\d+)\](.*?)\[(\d+)\]/, '$1[' + questionIndex + ']$3[' + answerIndex + ']'));
+      newAnswerForm.find(':input:first').attr('value'," ");
+
+    newAnswerForm.data('id', answerIndex);
+
+    
+
+    var $newFormLi = $('<li class="questionItem" data-id="'+questionIndex+'"></li>').append(newQuestionForm.html());
+    
+    // also add a remove button, just for this example
+    $newFormLi.append('<a href="#" class="remove-question">Supprimer question</a>');
+    
+    $('li.addQuestion').before($newFormLi);
+
+    initAnswerForm(newQuestionForm);
+    
+    // handle the removal, just for this example
+    $('.remove-question').click(function(e) {
+        e.preventDefault();
+        
+        $(this).parent().remove();
+        
+        return false;
+    });
+}
+
+function initAnswerForm($questionForm) {
+
+    $addAnswerLink = $('<a href="javascript:;" class="addAnswerLink" onclick="addAnswerForm(this)">Ajouter une réponse</a>');
+    $newAnswerLinkLi = $('<li></li>').append($addAnswerLink);
+
+    // Get the ul that holds the collection of Questions
+   var $collectionHolder = $questionForm.find('ul.answerList');
+    
+    // add the "add a Answer" anchor and li to the Answers ul
+    $collectionHolder.append($newAnswerLinkLi);
+
+}
+
+function addAnswerForm($this) {
+    
+    var newAnswerForm = answerForm.clone();
+    
+    var anwserNode = $($this).parent().prev();
+    var questionIndex = anwserNode.closest('li.questionItem').data('id');
+    var answerIndex = anwserNode.data('id');
+    // Display the form in the page in an li, before the "Add a Question" link li
+    newAnswerForm.find(':input:first').attr('id', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)_/, '$1_' + questionIndex + '_$3_' + (++answerIndex) + '_'));
+    newAnswerForm.find('label:first').attr('for', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
+    newAnswerForm.find(':input:first').attr('name', answerInputName.replace(/(.*?)\[(\d+)\](.*?)\[(\d+)\]/, '$1[' + questionIndex + ']$3[' + answerIndex + ']'));
+    newAnswerForm.find(':input:first').attr('value'," "); //Champs vide
+    var $newAnswerFormLi = $('<li class="answerItem" data-id="'+answerIndex+'"></li>').append(newAnswerForm.html());
+    
+    // also add a remove button, just for this example
+    $newAnswerFormLi.append('<a href="#" class="remove-answer">x</a>');
+    
+    var li = $($this).parent();
+    li.before($newAnswerFormLi);
+    
+    // handle the removal, just for this example
+    $('.remove-answer').click(function(e) {
+        e.preventDefault();
+        
+        $(this).parent().remove();
+        
+        return false;
+    });
+}
+</script>
+{% endblock %}

@@ -7,6 +7,7 @@
 	<ul id="survey-list">
     {% for survey in surveys %}
 		<li class="survey-item"><a href="{{ path('new-survey', {'slug': survey.slug}) }}">{{ survey.title }}</a></li>
+		<a href="{{path('edit-survey',{'slug': survey.slug}) }}"> Modifier </a>
     {% endfor %}
 	</ul>
 {% endblock %}

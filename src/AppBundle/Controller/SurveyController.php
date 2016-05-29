@@ -26,7 +26,39 @@ class SurveyController extends Controller {
         $surveys = $em->getRepository('AppBundle:Survey')->findAll();
         return $this->render('survey/list.html.twig', ['surveys' => $surveys]);
     }
-	
+
+    /**
+     * @Route("/sondage/edit/{slug}", name="edit-survey")
+     */
+    public function editSurveyAction(Request $request, $slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+         $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
+        $form = $this->createForm(SurveyType::class, $survey);
+        $form->handleRequest($request);
+        $nbQuestion = 0;
+
+         $questions = $survey->getQuestions();
+            foreach ($questions as $question) {
+               $nbQuestion++;
+           }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($survey);
+            $em->flush();
+            $slug = str_replace(" ", '-', $survey->getTitle());
+            $slug = $slug.'-'.$survey->getId();
+            $survey->setSlug($slug);
+            $em->flush(); 
+            return $this->redirect($this->generateUrl('survey-list'));
+        }
+        
+        //NB: Add a constraint
+        return $this->render('survey/edit.html.twig',['form' => $form->createView(), 'nbQuestion' => $nbQuestion]
+            );
+    }
+
+
     /**
      * @Route("/sondage/{slug}", name="new-survey")
      */
