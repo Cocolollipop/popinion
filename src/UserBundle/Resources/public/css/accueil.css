@@ -254,6 +254,7 @@ th {
   }
   .label {
     border: 1px solid #000;
+
   }
   .table {
     border-collapse: collapse !important;
@@ -6809,7 +6810,7 @@ body {
 footer{
     
     position: fixed;
-    margin-top: 15%;
+    
     height:21%;
     
 }

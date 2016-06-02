@@ -13,6 +13,8 @@ class HomeController extends Controller
     public function homeAction()
     {
         // replace this example code with whatever you need
+
+        
         return $this->render('accueil/pageAccueil.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
         ]);

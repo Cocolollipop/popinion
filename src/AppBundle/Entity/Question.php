@@ -30,7 +30,7 @@ class Question
 
     /**
      * @ORM\ManyToOne(targetEntity="Survey", inversedBy="questions", cascade={"persist"})
-	 * @ORM\JoinColumn(name="survey_id", referencedColumnName="id", onDelete="CASCADE")
+	 * @ORM\JoinColumn(name="survey_id", referencedColumnName="id")
      * @Assert\Type(type="AppBundle\Entity\Survey")
      * @Assert\Valid()
      */

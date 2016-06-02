@@ -1,10 +1,12 @@
 {# app/Resources/views/survey/create.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Creer{% endblock %}
+{% block title %}Creer un sondage{% endblock %}
 
 {% block content %}
-    <h2>Nouveau sondage : </h2>
+
+<div class="formCreation">
+    <h2 class="titreForm">Nouveau sondage : </h2>
     {{ form_errors(form) }}
     {{ form_start(form) }}
     {# form_widget(form._token) #}
@@ -36,12 +38,13 @@
             {% endfor %}
             </ul>
         </li>
-        <li class="addQuestion"><a href="#" class="addQuestionLink">Add a Question</a></li>
+        <li class="addQuestion"><a href="#" class="addQuestionLink">Ajouter une question</a></li>
     {% endfor %}
     </ul>
 
     <input type="submit" value="Envoyer" />
 </form>
+</div>
 {% endblock %}
 
 {% block javascripts %}
@@ -118,7 +121,7 @@ function addQuestionForm() {
     var $newFormLi = $('<li class="questionItem" data-id="'+questionIndex+'"></li>').append(newQuestionForm.html());
     
     // also add a remove button, just for this example
-    $newFormLi.append('<a href="#" class="remove-question">x</a>');
+    $newFormLi.append('<a href="#" class="remove-question">Supprimer la question</a>');
     
     $('li.addQuestion').before($newFormLi);
 
@@ -154,7 +157,7 @@ function addAnswerForm($this) {
 	var anwserNode = $($this).parent().prev();
 	var questionIndex = anwserNode.closest('li.questionItem').data('id');
 	var answerIndex = anwserNode.data('id');
-    // Display the form in the page in an li, before the "Add a Question" link li
+    // Display the form in the page in an li, before the "Ajouter une question" link li
     newAnswerForm.find(':input:first').attr('id', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)_/, '$1_' + questionIndex + '_$3_' + (++answerIndex) + '_'));
     newAnswerForm.find('label:first').attr('for', answerInputId.replace(/(.*?)_(\d+)_(.*?)_(\d+)/, '$1_' + questionIndex + '_$3_' + answerIndex + '_'));
     newAnswerForm.find(':input:first').attr('name', answerInputName.replace(/(.*?)\[(\d+)\](.*?)\[(\d+)\]/, '$1[' + questionIndex + ']$3[' + answerIndex + ']'));

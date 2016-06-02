@@ -24,7 +24,7 @@ class Survey
 
 
      /**
-     * @ORM\OneToMany(targetEntity="Question", mappedBy="survey", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="survey", cascade={"persist"})
      * @Assert\Valid()
      */
     protected $questions;

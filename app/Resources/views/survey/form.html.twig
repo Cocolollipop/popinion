@@ -1,20 +1,26 @@
 {# app/Resources/views/survey/form.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Questionnaire{% endblock %}
+{% block title %}{{title}}{% endblock %}
 
 {% block content %}
+
+<div class="formCreation">
     {{ form_errors(form) }}
     {{ form_start(form) }}
     {# form_widget(form._token) #}
     {% for question in form.questions %}
-        <h3>{{ question.Qwording.vars.value }}</h3>
+       <br> <h3 style="color:white">{{ question.Qwording.vars.value }}</h3>
         {% for answer in question.answers %}
-            <input type="checkbox" id="{{ answer.checked.vars.id }}" name="{{ answer.checked.vars.full_name }}" value="{{ answer.checked.vars.value }}">
+        <div id="questionnaire">
+            <input  type="checkbox" id="{{ answer.checked.vars.id }}" name="{{ answer.checked.vars.full_name }}" value="{{ answer.checked.vars.value }}">
             <label for="{{ answer.checked.vars.full_name }}">{{ answer.Awording.vars.value }}</label>
+            </div>
         {% endfor %}
     {% endfor %}
 
-    <input type="submit" value="Envoyer" />
+    <input style="margin-top:20px; width:95%;" type="submit" value="Envoyer"/>
 </form>
+</div>
 {% endblock %}
+

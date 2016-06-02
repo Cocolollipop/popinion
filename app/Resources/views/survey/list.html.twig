@@ -1,19 +1,22 @@
 {# app/Resources/views/survey/form.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Questionnaire{% endblock %}
+{% block title %}Liste de sondages{% endblock %}
 
 {% block content %}
-	<ul id="survey-list">
 
+<div id="listsondage" class="formCreation">
+    <h2 class="titreForm">Liste des sondages </h2>
+	<ul id="survey-list">
     {% for survey in surveys %}
 		<li class="survey-item"><a href="{{ path('new-survey', {'slug': survey.slug}) }}">{{ survey.title }}</a></li>
-		<a href="{{path('edit-survey',{'slug': survey.slug}) }}"> Modifier </a>
-		<a href="{{ path('delete-survey',{'slug': survey.slug}) }}" onclick="return confirm('are u sure?')">Supprimer</a>
+		<a class="editSurveyLink" href="{{path('edit-survey',{'slug': survey.slug}) }}"> Modifier </a>
+		<a class="deleteSurveyLink" href="{{ path('delete-survey',{'slug': survey.slug}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce sondage ?')">Supprimer</a>
 		{% else %}
 		<h1> Pas de sondages </h1>
 
     {% endfor %}
-    	<a href="{{path('add-survey') }}"> Créer un nouveau sondage </a>
+    <br>	<a class="addSurveyLink" href="{{path('add-survey') }}"> Créer un nouveau sondage </a>
 	</ul>
+	</div>
 {% endblock %}

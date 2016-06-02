@@ -28,12 +28,25 @@ class SurveyController extends Controller {
     }
 
     /**
+     * @Route("/sondage/delete/{slug}", name="delete-survey")
+     */
+    public function deleteSurveyAction(Request $request, $slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
+        $em->remove($survey);
+        $em->flush();
+        return $this->redirect($this->generateUrl('survey-list'));
+    }
+
+    /**
      * @Route("/sondage/edit/{slug}", name="edit-survey")
      */
     public function editSurveyAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
          $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
+          $title=$survey->getTitle();
         $form = $this->createForm(SurveyType::class, $survey);
         $form->handleRequest($request);
         $nbQuestion = 0;
@@ -44,41 +57,28 @@ class SurveyController extends Controller {
            }
 
         if ($form->isSubmitted() && $form->isValid()) {
-                $questions = $survey->getQuestions();
+
             foreach ($questions as $question) {
                 $answers = $question->getAnswers();
-                foreach ($answers as $answer) {    
+                foreach ($answers as $answer) {
                         $answer->setVote();
-                    
+                    }
                 }
-            }
             $em->persist($survey);
+
             $em->flush();
             $slug = str_replace(" ", '-', $survey->getTitle());
             $slug = $slug.'-'.$survey->getId();
             $survey->setSlug($slug);
-            $em->persist($survey);
             $em->flush(); 
             return $this->redirect($this->generateUrl('survey-list'));
         }
         
         //NB: Add a constraint
-        return $this->render('survey/edit.html.twig',['form' => $form->createView(), 'nbQuestion' => $nbQuestion]
+        return $this->render('survey/edit.html.twig',['form' => $form->createView(), 'nbQuestion' => $nbQuestion, 'title'=>$title]
             );
     }
-     /**
-     * @Route("/sondage/delete/{slug}", name="delete-survey")
-     */
-    public function deleteSurveyAction(Request $request, $slug)
-    {
-        $em = $this->getDoctrine()->getManager();
-         $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
-         $em->remove($survey);
 
-         $em->flush();
-        
-            return $this->redirect($this->generateUrl('survey-list'));
-        }
 
 
     /**
@@ -89,6 +89,7 @@ class SurveyController extends Controller {
         $em = $this->getDoctrine()->getManager();
         //Create an object survey
         $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
+        $title=$survey->getTitle();
         
         if ($survey == null) {
             //add an error page
@@ -113,11 +114,13 @@ class SurveyController extends Controller {
             $em->flush();
             //Redirection
             //NB: Add a message
-            return $this->redirectToRoute('homepage');
+
+
+            return $this->redirect($this->generateUrl('survey-list'));
         }
         //NB: Add a constraint
         return $this->render('survey/form.html.twig', array(
-                    'form' => $form->createView(),
+                    'form' => $form->createView(), 'title'=>$title
         ));
     }
     /**
@@ -147,68 +150,7 @@ class SurveyController extends Controller {
         return $this->render('survey/create.html.twig', ['form' => $form->createView()]);
     }
 
-     /**
-     * @Route("/popo/{slug}", name="add-question")
-     */
-    /*public function addQuestionAction(Request $request, $slug) {
-
-        $em = $this->getDoctrine()->getManager();
-        //On récupère le sondage
-        $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
-        $question = new Question();
-        $form = $this->createForm(QuestionType::class, $question);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($question);
-            $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
-            $question->setSurvey($survey);
-            $em->persist($question);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('add-reponse', ['id' => $question->getId()] ));
-        }
-        
-        //NB: Add a constraint
-        return $this->render('survey/create.html.twig', array(
-                    'form' => $form->createView(),
-                    )
-                   );
-       
-
-    }*/
-
-     /**
-     * @Route("/rep/{id}", name="add-reponse")
-     */
-    /*public function creerReponseAction(Request $request, $id) {
-
-            $em = $this->getDoctrine()->getManager();
-        //On récupère le sondage
-        $question = $em->getRepository('AppBundle:Question')->find($id);
-        $answer= new Answer();
-        $form = $this->createForm(AnswerType::class, $answer);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($question);
-            $em->flush();
-            $id= $question->getId();
-            $question = $em->getRepository('AppBundle:Question')->findOneById($id);
-            $survey = $em->getRepository('AppBundle:Survey')->findOneBySlug($slug);
-            $question->setSurvey($survey);
-            $em->persist($question);
-            $em->flush();
-            return $this->redirectToRoute('homepage');
-        }
-        
-        //NB: Add a constraint
-         return $this->render('question/newAnswer.html.twig', array(
-            'form' => $form->createView(),
-        ));
-       
-
-    }*/
+  
 }
 
   

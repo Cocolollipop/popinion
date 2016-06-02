@@ -12,8 +12,10 @@
    
 
     {% block stylesheets %}
-     {% stylesheets '@UserBundle/Resources/public/css/accueil.css' %}
+    {% stylesheets '@AppBundle/Resources/public/css/formulaire.css' 
+    '@UserBundle/Resources/public/css/accueil.css' %}
       <link rel="stylesheet" href="{{asset_url}}" type="text/css"/> 
+
       {% endstylesheets %}
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
@@ -24,7 +26,7 @@
     {% endblock stylesheets %}
 
     
-    <title>{% block title %}grvfrgkgn{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
 
 
     <!-- Latest compiled and minified CSS -->
@@ -95,9 +97,14 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav navbar-right">
+          {% if app.user!= null %}
             <li>
-              <a href="#">Connexion</a>
+             {{ user.username }}
             </li>
+            {% else %}
+              <a href="/login">Connexion</a>
+
+            {% endif %}
           </ul>
           <ul class="nav navbar-nav navbar-right"></ul>
         </div>
@@ -109,16 +116,16 @@
           <div class="col-md-12 header-nav">
             <ul class="header-nav nav nav-justified nav-pills ">
               <li class="active">
-                <a href="#">Accueil</a>
+                <a href="/home">Accueil</a>
               </li>
               <li>
-                <a href="#">Comment ça marche</a>
+                <a href="/home#cmtCaMarche">Comment ça marche</a>
               </li>
               <li>
-                <a href="#">Histoire / valeurs</a>
+                <a href="/home#histoireValeurs">Histoire / valeurs</a>
               </li>
               <li>
-                <a href="#">Contact</a>
+                <a href="/home#Contact">Contact</a>
               </li>
               <li class="header-nav">
                 <a href="#">FAQ</a>
@@ -140,20 +147,8 @@
             <!--<h1>Mentions de bas de page :)</h1>-->
             <p>© Popinion 2016 - Tous droits réservés - Mentions légales - CGU</p>
           </div>
-          <div class="col-md-12">
-            <p class="text-info text-right">
-              <br>
-              <br>
-            </p>
-            <div class="row">
-              <div class="col-md-12 hidden-xs text-right">
-                <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                <a href="#"><i class="fa fa-3x fa-fw hub text-inverse fa-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
+          
+  
      
     </footer>
 

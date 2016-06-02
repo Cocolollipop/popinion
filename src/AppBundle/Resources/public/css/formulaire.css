@@ -1,0 +1,43 @@
+
+
+.formCreation{
+	background-color:#6EA8D5;
+	padding:20px;
+	padding-right:50%;
+	padding-left: 20%;
+
+}
+
+.titreForm{
+	margin-left:5%;
+	color:white;
+}
+label
+{
+	display: block;
+	width: 100px;
+	float: left;
+}input
+{
+	width: 250px;
+
+}
+
+form{
+	margin:5%;
+}
+.addAnswerLink, .remove-answer, .addQuestionLink, .remove-question, .editSurveyLink, .deleteSurveyLink, .addSurveyLink {
+	color:black;
+}
+.survey-item{
+	  background: #cce5ff;
+    margin: 5px;
+}
+
+#questionnaire{
+	 background: #cce5ff;
+    margin: 5px;
+    display:inline-block; 
+  
+    padding-left:10px;
+}

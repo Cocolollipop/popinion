@@ -32,7 +32,7 @@ class Answer
     private $vote = 0;
     /**
      * @ORM\ManyToOne(targetEntity="Question", inversedBy="answers", cascade={"persist"})
-     * @ORM\JoinColumn(name="question_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
      * @Assert\Type(type="AppBundle\Entity\Question")
      * @Assert\Valid()
      */
