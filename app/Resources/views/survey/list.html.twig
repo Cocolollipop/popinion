@@ -10,11 +10,10 @@
 		<li class="survey-item"><a href="{{ path('new-survey', {'slug': survey.slug}) }}">{{ survey.title }}</a></li>
 		<a href="{{path('edit-survey',{'slug': survey.slug}) }}"> Modifier </a>
 		<a href="{{ path('delete-survey',{'slug': survey.slug}) }}" onclick="return confirm('are u sure?')">Supprimer</a>
-		<a href="{{path('edit-survey',{'slug': survey.slug}) }}"> Créer un nouveau sondage </a>
 		{% else %}
 		<h1> Pas de sondages </h1>
-		<a href="{{path('add-survey') }}"> Créer un nouveau sondage </a>
 
     {% endfor %}
+    	<a href="{{path('add-survey') }}"> Créer un nouveau sondage </a>
 	</ul>
 {% endblock %}

@@ -1,4 +1,12 @@
 
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix: /
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /
+
 oauth_register:
     pattern: /oauthRegister
     defaults: { _controller: AppBundle:Security:oauthRegister }
@@ -16,9 +24,11 @@ user:
     type:     annotation
     prefix:   /
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+fos_user_security_check:
+    defaults: { _controller: UserBundle:Security:login }
+    path:   /login
 
