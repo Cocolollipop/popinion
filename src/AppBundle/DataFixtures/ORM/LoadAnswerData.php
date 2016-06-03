@@ -12,7 +12,7 @@ class LoadAnswerData extends AbstractFixture implements OrderedFixtureInterface
     {
 	    $answers = [
 		    ['bleu', 'rouge', 'vert', 'jaune'],
-			['hiver', 'printemps', 'été', 'autone'],
+			['hiver', 'printemps', 'été', 'automne'],
 			['ville', 'camapagne', 'montagne', 'mer']
 		];
         

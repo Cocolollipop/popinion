@@ -23,7 +23,7 @@ class Question
     private $id;
 
      /**
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
     protected $answers = [];

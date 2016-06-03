@@ -41,6 +41,7 @@
 </head>
 
 <body>
+
 <div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {
@@ -124,23 +125,27 @@
               <li>
                 <a href="/home#histoireValeurs">Histoire / valeurs</a>
               </li>
+               <li class="header-nav">
+                <a href="/sondages">Les Sondages</a>
+              </li>
               <li>
                 <a href="/home#Contact">Contact</a>
               </li>
-              <li class="header-nav">
-                <a href="#">FAQ</a>
-              </li>
+             
             </ul>
           </div>
         </div>
       </div>
     </div>
-
+<div class="wrapper">
 
 <div class="container">
     {% block content %}{% endblock %}
 </div>
- <footer class="section section-danger text-center">
+  <div class="push"></div>
+        </div>
+          <div class="footer">
+ <footer class="section section-danger text-center site-footer">
       
         <div class="row">
           <div class="col-md-12">
@@ -159,5 +164,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 {% block javascripts %}{% endblock %}
+ </div>
 </body>
 </html>
